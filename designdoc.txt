@@ -1,0 +1,113 @@
+Purpose/Rules
+The software is a game. You are the flame, and you use the arrow keys to move.
+Guns (the blue plus signs), Cannons, and Launchers will fire at you. If any projectile
+hits you, you lose a life. If you touch a Gun, Cannon, or Launcher, you lose a life.
+If you touch water, you lose a life. Stars give you points and mushrooms give you lives.
+If you run out of lives you lose. To beat a level, you must first collect the key (by walking into
+it) and then entering the door (again by walking into it).
+
+In terms of projectiles, Guns will always shoot at you if you are in the same
+row or column as them and shoot in your direction. They fire at an unlimited rate.
+Cannons shoot out waves that move faster than bombs, but every time a cannon
+fires, it has to wait one second before it can fire again. Launchers will
+shoot out an icicle which will follow you around. If the icicle hits you, you
+lose a life, but the icicle goes away too. Launchers will never respawn icicles.
+
+If you lose a life, all projectiles vanish from the screen, and if you have
+collected the key the door will still remain open. You will restart at the
+center of the screen.
+
+If you lose all your lives, THE GAME WILL IMMEDIATELY START OVER.
+
+Requirements
+The software should play according to the above rules
+
+Classes
+Note: All classes use rect to maintain their position and image to maintain their image
+	  All have getter and setter methods which I will not bother mentioning
+
+Bullet
+Bullet shot out by gun. Dir is used to determine the direction to move.
+Destroy checks whether it should be destroyed.
+Uses move() to move bullets
+
+Cannon
+Shoots out waves. Fire is used to determine whether the cannon can shoot.
+Timer is used to keep track of the one second recharge time.
+reset() is called after firing to start the timer, whose SLOT connects to
+changeFire(), which allows the cannon to fire again and stops the timer
+THE Y COORDINATE OF THE CANNON'S LOCATION MUST BE 7 MORE THAN A MULTIPLE OF
+16 FOR THE CANNON TO WORK
+
+Exit
+Exit to next level. Open determines whether the exit can be used
+
+FireIce
+Maintains interactions between all things.
+Has player, key, exit. Also has vectors of guns, bullets, cannons, waves,
+launchers, icicles, water, and helpers. Has three timers to determine
+when bullets, waves, and icicles move. Lives, score, and level keep track of
+lives, score, and level.
+moveBullets() is the SLOT for the bullet timer and moves all bullets
+moveWaves() is the SLOT for the wave timer and moves all waves
+moveIcicles() is the SLOT for the icicle timer and moves all icicles
+keyPressEvent() handles keyboard input and movement
+paintEvent() handles graphics
+initialize() creates the stage based on level number
+reset() moves the player back to the center
+If lives run out, lives, score, and level are reset and the game is automatically
+reinitialized.
+
+Gun
+Fires bullets.
+THE Y COORDINATE OF THE GUN'S LOCATION MUST BE 7 MORE THAN A MULTIPLE OF
+16 FOR THE GUN TO WORK. ALSO, THE X COORDINATE OF THE GUN'S LOCATION MUST BE
+12 MORE THAN A MULTIPLE OF 16 FOR THE GUN TO WORK
+
+Helper
+Abstract base class for any item the flame can pick up that is optional (so
+not for keys)
+
+Icicle
+Follows player around
+Moveleft() moveright() moveup() and movedown() move the icicle in the 
+appropriate direction
+
+Key
+Opens exit. Show is used to determine whether fireice should show the key
+
+Launcher
+Fires icicle
+
+Life
+Adds life to player. Show used to determine whether shown by fireice.
+Type determines the type of helper, in this case it's 'l'
+
+Player
+Controlled by person. moveleft() moveright() moveup() movedown() move the player
+in the appropriate directon.s
+
+Star
+Adds points to score.Show used to determine whether shown by fireice.
+Type determines the type of helper, in this case it's 's'
+
+Water
+Water that kills player if touched
+
+Wave
+Wave projectile shot from cannon that only moves to the right.
+Destroy used to determine if wave should be destroyed.
+
+Global Data 
+None
+
+High-Level Architechture
+The things have their own separate classes, but they are not dependent on each
+other (with the exception of helper and its subclasses). All graphical and game mechanics
+are done in the fireice class.
+
+GUI
+The controls are the arrow keys to move around the flame
+
+Test Case
+Test to make sure all the above rules are followed whenver you play the game

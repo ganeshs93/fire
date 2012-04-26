@@ -1,0 +1,5 @@
+1. Put all files in their own directory
+2. Type in qmake -project
+3. Type in qmake
+4. Type in make
+5. Run executable
